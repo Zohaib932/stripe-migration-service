@@ -152,7 +152,7 @@ async function processRow(
 
     const customers = await findCustomersByOldId(stripe, row.oldId);
 
-    if (customers.length === 0) {
+    if (customers?.length === 0) {
         return {
             rowNumber: row.rowNumber,
             status: "customer_not_found",
@@ -170,7 +170,7 @@ async function processRow(
 
     const customer = customers[0];
     const subscriptions = await getExistingSubscriptions(stripe, customer.id);
-    if (subscriptions.length > 0) {
+    if (subscriptions?.length > 0) {
         return {
             rowNumber: row.rowNumber,
             status: "skipped_existing_subscription",
